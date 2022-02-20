@@ -1,0 +1,8 @@
+flask
+flask-sqlalchemy
+flask-migrate
+ipython
+python-dotenv
+flask-shell-ipython
+Flask-WTF==0.14.3
+WTForms==3.0.1

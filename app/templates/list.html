@@ -1,0 +1,52 @@
+{% extends "parent.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista egzemplarzy</title>
+    <style>
+        table, th, tr, td {border: 1px solid orange; padding: 7px;}
+    </style>
+</head>
+
+<h2>Lista egzemplarzy</h2>
+
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Tytuł</th>
+    <th>Autor</th>
+    <th>Na półce</th>
+    </thead>
+{% for book in books_list %}
+    <tr>
+        <td><a href="/position/{{ book.id }}">{{ book.id }}</a></td>
+        <td>{{ Book.query.get(book.book_id) }}</td>
+        <td>{{ Author.query.get(book.author_id) }}</td>
+        <td>{{ Book.query.get(book.book_id).available }}</td>
+        
+    </tr>
+{% endfor %}
+</table>
+
+<div>
+    <h2>Dodaj nową pozycję</h2>
+    <form method="POST" action="/list/">
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %} 
+            <tr>
+                <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Dodaj">
+    </form>
+</div>
+
+</body>
+</html>
+{% endblock %} 
